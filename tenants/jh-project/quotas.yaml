@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota-gpu
+  namespace: jh-project
+spec:
+  hard:
+    requests.cpu: "8"
+    limits.cpu: "16"
+    requests.memory: "16Gi"
+    limits.memory: "64Gi"
+    requests.nvidia.com/gpu: "1"
+    limits.nvidia.com/gpu: "1"
+    pods: "20"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota-shared
+  namespace: jh-project-shared
+spec:
+  hard:
+    requests.cpu: "4"
+    limits.cpu: "8"
+    requests.memory: "8Gi"
+    limits.memory: "16Gi"
+    requests.nvidia.com/gpu: "0"
+    limits.nvidia.com/gpu: "0"
+    pods: "20"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tenant-limits
+  namespace: jh-project
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: "2"
+        memory: "4Gi"
+      defaultRequest:
+        cpu: "500m"
+        memory: "512Mi"
+      max:
+        cpu: "16"
+        memory: "64Gi"
+      min:
+        cpu: "10m"
+        memory: "15Mi"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tenant-limits
+  namespace: jh-project-shared
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: "2"
+        memory: "4Gi"
+      defaultRequest:
+        cpu: "500m"
+        memory: "512Mi"
+      max:
+        cpu: "16"
+        memory: "64Gi"
+      min:
+        cpu: "10m"
+        memory: "15Mi"

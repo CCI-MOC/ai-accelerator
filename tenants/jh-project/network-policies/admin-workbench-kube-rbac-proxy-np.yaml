@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: admin-workbench-kube-rbac-proxy-np
+  namespace: jh-project
+spec:
+  ingress:
+  - ports:
+    - port: 8443
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      notebook-name: admin-workbench
+  policyTypes:
+  - Ingress

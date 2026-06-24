@@ -1,0 +1,114 @@
+apiVersion: kubeflow.org/v1
+kind: Notebook
+metadata:
+  annotations:
+    kubeflow-resource-stopped: '2026-06-24T01:16:19Z'
+    notebooks.opendatahub.io/enable-oauth: 'true'
+    notebooks.opendatahub.io/enable-route: 'true'
+    notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
+    notebooks.opendatahub.io/notebook-image-tag: '3.4'
+    notebooks.opendatahub.io/notebook-name: admin
+    notebooks.opendatahub.io/odh-managed: 'true'
+    opendatahub.io/hardware-profile: default-profile
+  labels:
+    app: opendatahub
+    component: odh-dashboard-notebook
+    notebooks.opendatahub.io/enable-oauth: 'true'
+    notebooks.opendatahub.io/enable-route: 'true'
+    notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
+    notebooks.opendatahub.io/notebook-image-tag: '3.4'
+    notebooks.opendatahub.io/odh-managed: 'true'
+    opendatahub.io/dashboard: 'true'
+    opendatahub.io/hardware-profile: default-profile
+    opendatahub.io/user: admin
+  name: admin
+  namespace: jh-project
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity: {}
+      containers:
+      - env:
+        - name: NOTEBOOK_ARGS
+          value: --ServerApp.port=9999 --ServerApp.ip=0.0.0.0 --ServerApp.notebook_dir=/home/opendatahub/workspace
+            --ServerApp.allow_origin='*' --ServerApp.disable_check_xsrf=true
+        - name: RHOAI_MANAGED_ENV
+          value: 'true'
+        - name: JUPYTER_IMAGE
+          value: s2i-generic-data-science-notebook
+        - name: JUPYTER_IMAGE_TAG
+          value: '3.4'
+        - name: NOTEBOOK_NAME
+          value: admin
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: PIP_CERT
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        - name: REQUESTS_CA_BUNDLE
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        - name: SSL_CERT_FILE
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        - name: PIPELINES_SSL_SA_CERTS
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        - name: KF_PIPELINES_SSL_SA_CERTS
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        - name: GIT_SSL_CAINFO
+          value: /etc/pki/tls/custom-certs/ca-bundle.crt
+        image: registry.redhat.io/rhoai/odh-workbench-jupyter-datascience-cpu-py312-rhel9@sha256:d82680fe0790b82179c12214cb33714ae65e5e3b2a9a9a8a9a9a8a9a8a9a9a8a9a8a9a9a8a9a8a9a9a8a9a8a9a9a8a9
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: notebook-port
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: admin
+        ports:
+        - containerPort: 9999
+          name: notebook-port
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: notebook-port
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: '2'
+            memory: 8Gi
+            nvidia.com/gpu: '1'
+          requests:
+            cpu: 500m
+            memory: 512Mi
+            nvidia.com/gpu: '1'
+        volumeMounts:
+        - mountPath: /home/opendatahub/workspace
+          name: wb-admin
+        - mountPath: /etc/pki/tls/custom-certs
+          name: trusted-ca
+          readOnly: true
+        - mountPath: /opt/app-root/pipeline-runtimes/
+          name: runtime-images
+      serviceAccountName: admin
+      volumes:
+      - name: wb-admin
+        persistentVolumeClaim:
+          claimName: wb-admin
+      - configMap:
+          name: workbench-trusted-ca-bundle
+          optional: true
+        name: trusted-ca
+      - configMap:
+          name: pipeline-runtime-images
+          optional: true
+        name: runtime-images

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jh-project
+  labels:
+    opendatahub.io/dashboard: "true"
+    tenant: jh-project
+    tenant-network-zone: jh-project
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jh-project-shared
+  labels:
+    opendatahub.io/dashboard: "true"
+    tenant: jh-project
+    tenant-network-zone: jh-project

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-pipelines-definition
+  namespace: jh-project-shared
+  labels:
+    app: mariadb-pipelines-definition
+    component: data-science-pipelines
+    dspa: pipelines-definition
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mariadb-pipelines-definition
+  template:
+    metadata:
+      labels:
+        app: mariadb-pipelines-definition
+    spec:
+      containers:
+        - name: mariadb
+          image: docker.io/mariadb:10.11.8
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-pipelines-definition
+                  key: mysql_root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-pipelines-definition
+                  key: mysql_username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-pipelines-definition
+                  key: mysql_password
+            - name: MYSQL_DATABASE
+              value: mlpipeline
+          volumeMounts:
+            - name: mariadb-pipelines-definition
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 2
+            periodSeconds: 5
+      volumes:
+        - name: mariadb-pipelines-definition
+          persistentVolumeClaim:
+            claimName: mariadb-pipelines-definition

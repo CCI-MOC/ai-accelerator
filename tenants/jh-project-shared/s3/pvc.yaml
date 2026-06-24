@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rustfs-data
+  namespace: jh-project-shared
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: gp3-csi
+  volumeMode: Filesystem
+  volumeName: pvc-23190ded-6964-4c66-896c-fdf219cbfee4

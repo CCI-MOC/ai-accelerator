@@ -1,0 +1,87 @@
+apiVersion: kubeflow.org/v1
+kind: Notebook
+metadata:
+  name: admin
+  namespace: jh-project
+  labels:
+    app: opendatahub
+    component: odh-dashboard-notebook
+    opendatahub.io/dashboard: "true"
+    opendatahub.io/user: admin
+    notebooks.opendatahub.io/odh-managed: "true"
+    notebooks.opendatahub.io/enable-oauth: "true"
+    notebooks.opendatahub.io/enable-route: "true"
+    notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
+    notebooks.opendatahub.io/notebook-image-tag: "3.4"
+  annotations:
+    notebooks.opendatahub.io/odh-managed: "true"
+    notebooks.opendatahub.io/enable-oauth: "true"
+    notebooks.opendatahub.io/enable-route: "true"
+    notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
+    notebooks.opendatahub.io/notebook-image-tag: "3.4"
+    notebooks.opendatahub.io/notebook-name: admin
+    opendatahub.io/hardware-profile: default-profile
+spec:
+  template:
+    spec:
+      serviceAccountName: admin
+      containers:
+        - name: admin
+          image: "registry.redhat.io/rhoai/odh-workbench-jupyter-datascience-cpu-py312-rhel9@sha256:d82680de0790b333892da214cb3714ae665e5e3e2b2a9a9a8a9a9a8a9a8a9a9a8a9a8a9a9a8a9a9a8a9a"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "20
+              memory: 8Gi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          env:
+            - name: NOTEBOOK_ARGS
+              value: |-
+                --ServerApp.port=9999
+                --ServerApp.ip=0.0.0.0
+                --ServerApp.notebook_dir=/home/opendatahub/workspace
+                --ServerApp.allow_origin='*'
+                --ServerApp.disable_check_xsrf=true
+            - name: RHOAI_MANAGED_ENV
+              value: "true"
+            - name: JUPYTER_IMAGE
+              value: s2i-generic-data-science-notebook
+            - name: JUPYTER_IMAGE_TAG
+              value: "3.4"
+            - name: NOTEBOOK_NAME
+              value: admin
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - containerPort: 9999
+              name: notebook-port
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: notebook-port
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: notebook-port
+          volumeMounts:
+            - name: wb-admin
+              mountPath: /home/opendatahub/workspace
+      volumes:
+        - name: wb-admin
+          persistentVolumeClaim:
+            claimName: wb-admin
