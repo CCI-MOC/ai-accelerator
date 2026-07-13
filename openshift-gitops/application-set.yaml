@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rhoai-app-of-apps
+  namespace: rhoai-gitops
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/CCI-MOC/ai-accelerator.git
+        revision: main
+        directories:
+          - path: openshift-gitops/applications/*
+  template:
+    metadata:
+      name: '{{ .path.basename }}'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
