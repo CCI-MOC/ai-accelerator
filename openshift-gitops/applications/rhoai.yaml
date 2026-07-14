@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: rhoai
-  namespace: rhoai-gitops
+  namespace: openshift-gitops-rhoai
 spec:
   project: default
   syncPolicy:
@@ -17,4 +17,4 @@ spec:
     path: components/operators/openshift-ai/aggregate/overlays/stable-3.x-nvidia-gpu
   destination:
     server: https://kubernetes.default.svc
-    namespace: rhoai-gitops
+    namespace: openshift-gitops-rhoai
