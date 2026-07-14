@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
-  name: rhoai-gitops
-  namespace: rhoai-gitops
+  name: openshift-gitops-rhoai
+  namespace: openshift-gitops-rhoai
 spec:
   server:
     route:

@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rhoai-gitops
+  name: openshift-gitops-rhoai
   labels:
-    app.kubernetes.io/name: rhoai-gitops
+    app.kubernetes.io/name: openshift-gitops-rhoai
