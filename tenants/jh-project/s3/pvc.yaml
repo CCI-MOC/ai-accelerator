@@ -4,6 +4,7 @@ metadata:
   name: rustfs-data
   namespace: jh-project
 spec:
+  storageClassName: px-csi-db
   accessModes:
     - ReadWriteOnce
   resources:
