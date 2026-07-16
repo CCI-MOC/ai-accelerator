@@ -1,18 +1,42 @@
 apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
-  name: llama-3-2-1b
+  annotations:
+    modelFormat: sklearn
+    security.opendatahub.io/enable-auth: 'false'
+    openshift.io/description: ''
+    openshift.io/display-name: iris
+    serving.kserve.io/deploymentMode: Standard
+    opendatahub.io/hardware-profile-namespace: redhat-ods-applications
+    opendatahub.io/hardware-profile-name: default-profile
+    opendatahub.io/connections: iris
+    opendatahub.io/model-type: predictive
+  name: iris
   namespace: jh-project
   labels:
-    opendatahub.io/dashboard: "true"
-  annotations:
-    openshift.io/display-name: Llama 3.2 1B Instruct
-    openshift.io/description: Llama 3.2 1B Instruct GGUF Q4_K_M on CPU
-    serving.kserve.io/deploymentMode: RawDeployment
+    networking.kserve.io/visibility: exposed
+    opendatahub.io/dashboard: 'true'
 spec:
   predictor:
+    automountServiceAccountToken: false
+    deploymentStrategy:
+      type: Recreate
+    imagePullSecrets:
+      - name: iris
+    maxReplicas: 1
+    minReplicas: 1
     model:
       modelFormat:
-        name: gguf
-      runtime: llama-cpp-gguf
-      storageUri: https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+        name: sklearn
+        version: '1'
+      name: ''
+      resources:
+        limits:
+          cpu: '2'
+          memory: 4Gi
+        requests:
+          cpu: '2'
+          memory: 4Gi
+      runtime: iris
+      storageUri: 'oci://docker.io/rhuss/kserving-example-sklearn:1.0'
+    timeout: 30

@@ -6,6 +6,7 @@ metadata:
   labels:
     opendatahub.io/dashboard: "true"
   annotations:
+    argocd.argoproj.io/sync-wave: "-1"
     opendatahub.io/disable-gpu: "true"
     openshift.io/display-name: Llama.cpp (GGUF)
     openshift.io/description: CPU-based GGUF model serving with llama.cpp
