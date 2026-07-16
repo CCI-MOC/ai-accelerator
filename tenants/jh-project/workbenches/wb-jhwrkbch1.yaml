@@ -25,7 +25,7 @@ metadata:
     notebooks.opendatahub.io/enable-route: "true"
     notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
     notebooks.opendatahub.io/notebook-image-tag: "2025.2"
-    opendatahub.io/hardware-profile: nvidia-gpu-notebooks
+    opendatahub.io/hardware-profile: default-profile
   annotations:
     notebooks.opendatahub.io/odh-managed: "true"
     notebooks.opendatahub.io/enable-oauth: "true"
@@ -33,20 +33,11 @@ metadata:
     notebooks.opendatahub.io/notebook-image-name: s2i-generic-data-science-notebook
     notebooks.opendatahub.io/notebook-image-tag: "2025.2"
     notebooks.opendatahub.io/notebook-name: jhwrkbch1
-    opendatahub.io/hardware-profile: nvidia-gpu-notebooks
+    opendatahub.io/hardware-profile: default-profile
 spec:
   template:
     spec:
       serviceAccountName: default
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: nvidia.com/gpu.present
-                operator: In
-                values:
-                - "true"
       containers:
         - name: jhwrkbch1
           image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-generic-data-science-notebook:2025.2
@@ -54,12 +45,10 @@ spec:
           resources:
             limits:
               cpu: "2"
-              memory: "8Gi"
-              nvidia.com/gpu: "1"
+              memory: "4Gi"
             requests:
-              cpu: "500m"
-              memory: "512Mi"
-              nvidia.com/gpu: "1"
+              cpu: "2"
+              memory: "4Gi"
           env:
             - name: NOTEBOOK_ARGS
               value: >-
