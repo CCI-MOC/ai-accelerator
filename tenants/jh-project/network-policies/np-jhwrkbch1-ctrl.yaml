@@ -10,7 +10,7 @@ spec:
         matchLabels:
           kubernetes.io/metadata.name: redhat-ods-applications
     ports:
-    - port: 9999
+    - port: 8443
       protocol: TCP
   podSelector:
     matchLabels:
