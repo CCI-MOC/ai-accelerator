@@ -23,6 +23,7 @@ metadata:
     opendatahub.io/image-display-name: Jupyter | Data Science | CPU | Python 3.12
     opendatahub.io/username: jhwrkbch1
     opendatahub.io/hardware-profile-name: default-profile
+    opendatahub.io/hardware-profile-namespace: redhat-ods-applications
     opendatahub.io/user: jhwrkbch1
     openshift.io/display-name: jhwrkbch1
     openshift.io/description: ''
