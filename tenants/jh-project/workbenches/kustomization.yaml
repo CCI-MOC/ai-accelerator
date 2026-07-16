@@ -6,6 +6,5 @@ resources:
 - rb-admin-workbench-tls-init.yaml
 - admin-workbench-tls-init.yaml
 - wb-admin.yaml
-- admin.yaml
 - admin-workbench-pvc-pvc.yaml
 - admin-workbench.yaml
