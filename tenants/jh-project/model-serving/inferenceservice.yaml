@@ -30,6 +30,7 @@ spec:
         name: sklearn
         version: '1'
       name: ''
+      runtime: mlserver-runtime-template
       resources:
         limits:
           cpu: '2'
