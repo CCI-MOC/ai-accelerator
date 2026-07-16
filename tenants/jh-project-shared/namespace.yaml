@@ -16,6 +16,3 @@ metadata:
     tenant: jh-project
     tenant-network-zone: jh-project
   name: jh-project-shared
-spec:
-  finalizers:
-  - kubernetes
