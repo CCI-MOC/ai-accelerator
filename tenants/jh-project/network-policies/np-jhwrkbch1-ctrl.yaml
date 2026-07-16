@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: admin-ctrl-np
+  name: np-jhwrkbch1-ctrl
   namespace: jh-project
 spec:
   ingress:
@@ -10,10 +10,10 @@ spec:
         matchLabels:
           kubernetes.io/metadata.name: redhat-ods-applications
     ports:
-    - port: 8888
+    - port: 9999
       protocol: TCP
   podSelector:
     matchLabels:
-      notebook-name: admin
+      notebook-name: jhwrkbch1
   policyTypes:
   - Ingress
