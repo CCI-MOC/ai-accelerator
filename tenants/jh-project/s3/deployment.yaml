@@ -66,4 +66,4 @@ spec:
       volumes:
         - name: rustfs-data
           persistentVolumeClaim:
-            claimName: rustfs-data
+            claimName: rustfs-data-block

@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - sa-jhwrkbch1.yaml
-  - rb-jhwrkbch1-tls-init.yaml
-  - jhwrkbch1-tls-init.yaml
   - jhwrkbch1-kube-rbac-proxy-config.yaml
+  - jhwrkbch1-kube-rbac-proxy-tls.yaml
   - wb-jhwrkbch1.yaml

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rustfs-data
+  name: rustfs-data-block
   namespace: jh-project
 spec:
   storageClassName: px-csi-db
