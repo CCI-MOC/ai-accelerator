@@ -1,0 +1,53 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: llama-cpp-gguf
+  namespace: jh-project
+  labels:
+    opendatahub.io/dashboard: "true"
+  annotations:
+    opendatahub.io/disable-gpu: "true"
+    openshift.io/display-name: Llama.cpp (GGUF)
+    openshift.io/description: CPU-based GGUF model serving with llama.cpp
+spec:
+  supportedModelFormats:
+    - name: gguf
+      version: "1"
+      autoSelect: true
+  containers:
+    - name: kserve-container
+      image: ghcr.io/ggerganov/llama.cpp:server
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - |
+          MODEL=$(ls /mnt/models/*.gguf 2>/dev/null | head -1)
+          if [ -z "$MODEL" ]; then
+            echo "No GGUF model found in /mnt/models/"
+            exit 1
+          fi
+          echo "Loading model: $MODEL"
+          exec llama-server -m "$MODEL" --host 0.0.0.0 --port 8080
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "2"
+          memory: 4Gi
+        limits:
+          cpu: "4"
+          memory: 8Gi
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 30
+        periodSeconds: 10
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 60
+        periodSeconds: 30

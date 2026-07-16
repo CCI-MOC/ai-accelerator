@@ -10,3 +10,4 @@ resources:
   - pipelines/
   - data-connections-overlays/
   - workbenches/
+  - model-serving/
