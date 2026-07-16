@@ -54,7 +54,7 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 10
           volumeMounts:
-            - name: rustfs-data
+            - name: rustfs-data-block
               mountPath: /data
           resources:
             requests:
@@ -64,6 +64,6 @@ spec:
               cpu: "2"
               memory: "4Gi"
       volumes:
-        - name: rustfs-data
+        - name: rustfs-data-block
           persistentVolumeClaim:
             claimName: rustfs-data-block
