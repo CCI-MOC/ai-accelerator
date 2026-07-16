@@ -169,11 +169,3 @@ spec:
             name: pipeline-runtime-images
             optional: true
           name: runtime-images
-        - configMap:
-            defaultMode: 420
-            name: jhwrkbch1-kube-rbac-proxy-config
-          name: kube-rbac-proxy-config
-        - name: kube-rbac-proxy-tls-certificates
-          secret:
-            defaultMode: 420
-            secretName: jhwrkbch1-kube-rbac-proxy-tls
