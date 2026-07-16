@@ -9,8 +9,6 @@ spec:
       elements:
       - name: tenant-jh-project
         path: tenants/jh-project
-      - name: tenant-jh-project-shared
-        path: tenants/jh-project-shared
   template:
     metadata:
       name: '{{name}}'

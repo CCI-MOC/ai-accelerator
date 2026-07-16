@@ -20,7 +20,7 @@ spec:
   objectStorage:
     externalStorage:
       bucket: pipeline-artifacts
-      host: rustfs-s3.jh-project-shared.svc.cluster.local:9000
+      host: rustfs-s3.jh-project.svc.cluster.local:9000
       port: "9000"
       region: us-east-1
       scheme: http

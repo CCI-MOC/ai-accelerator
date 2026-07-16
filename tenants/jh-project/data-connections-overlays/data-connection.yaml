@@ -13,5 +13,5 @@ stringData:
   AWS_ACCESS_KEY_ID: admin
   AWS_SECRET_ACCESS_KEY: rustfs123!
   AWS_S3_BUCKET: pipeline-artifacts
-  AWS_S3_ENDPOINT: http://rustfs-s3.jh-project-shared.svc.cluster.local:9000
+  AWS_S3_ENDPOINT: http://rustfs-s3.jh-project.svc.cluster.local:9000
   AWS_DEFAULT_REGION: us-east-1

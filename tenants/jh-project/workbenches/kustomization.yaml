@@ -7,4 +7,5 @@ resources:
 - admin-workbench-tls-init.yaml
 - wb-admin.yaml
 - admin-workbench-pvc-pvc.yaml
+- admin-workbench-kube-rbac-proxy-config.yaml
 - admin-workbench.yaml
