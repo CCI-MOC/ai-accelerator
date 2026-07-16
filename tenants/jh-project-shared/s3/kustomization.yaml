@@ -1,6 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- pvc.yaml
+- rustfs-credentials.yaml
 - deployment.yaml
+- pvc.yaml
+- serviceaccount.yaml
 - service.yaml
+- route.yaml
+- buckets.yaml
+- mariadb-pipelines-definition-secret.yaml
+- mariadb-pipelines-definition-pvc.yaml
+- mariadb-deployment.yaml

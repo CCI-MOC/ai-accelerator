@@ -8,3 +8,4 @@ resources:
 - rbac/
 - s3/
 - pipelines/
+- data-connections-overlays/

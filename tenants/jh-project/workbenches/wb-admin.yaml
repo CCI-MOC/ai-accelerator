@@ -40,7 +40,7 @@ spec:
       serviceAccountName: admin
       affinity:
         nodeAffinity:
-          requiredDuringSchedulibingDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: nvidia.com/gpu.present
@@ -83,8 +83,6 @@ spec:
           volumeMounts:
             - name: wb-admin
               mountPath: /home/opendatahub/workspace
-          imagePullSecrets:
-            rbac.authorization.k8s.io/v1
           ports:
             - containerPort: 9999
               name: notebook-port
