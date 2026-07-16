@@ -6,7 +6,6 @@ resources:
   - tenant-limits.yaml
   - network-policies/
   - rbac/
-  - s3/
   - pipelines/
   - data-connections-overlays/
   - workbenches/
