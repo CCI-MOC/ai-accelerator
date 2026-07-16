@@ -52,10 +52,6 @@ rules:
     resources:
       - datasciencepipelinesapplications
     verbs: ["*"]
-  - apiGroups: ["opendatahub.io"]
-    resources:
-      - dataconnections
-    verbs: ["*"]
   - apiGroups: ["datasciencecluster.opendatahub.io"]
     resources:
       - datascienceprojects
