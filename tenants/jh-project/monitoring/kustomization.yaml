@@ -1,14 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-generatorOptions:
-  labels:
-    console.openshift.io/dashboard: "true"
-    console.openshift.io/odc-dashboard: "true"
-  disableNameSuffixHash: true
-
-configMapGenerator:
-  - name: jh-project-component-health
-    namespace: openshift-config-managed
-    files:
-      - jh-project-component-health.json
+resources:
+  - pod-monitor.yaml
