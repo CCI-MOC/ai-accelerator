@@ -4,6 +4,7 @@ metadata:
   annotations:
     modelFormat: sklearn
     security.opendatahub.io/enable-auth: 'false'
+    opendatahub.io/hardware-profile-resource-version: '7722807'
     openshift.io/description: ''
     openshift.io/display-name: iris
     serving.kserve.io/deploymentMode: Standard
@@ -11,7 +12,6 @@ metadata:
     opendatahub.io/hardware-profile-name: default-profile
     opendatahub.io/connections: iris
     opendatahub.io/model-type: predictive
-  name: iris
   namespace: jh-project
   labels:
     networking.kserve.io/visibility: exposed
@@ -30,7 +30,6 @@ spec:
         name: sklearn
         version: '1'
       name: ''
-      runtime: mlserver-runtime-template
       resources:
         limits:
           cpu: '2'
