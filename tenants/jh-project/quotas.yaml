@@ -3,6 +3,8 @@ kind: ResourceQuota
 metadata:
   name: tenant-quota-gpu
   namespace: jh-project
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   hard:
     requests.cpu: "8"
@@ -18,6 +20,8 @@ kind: LimitRange
 metadata:
   name: tenant-limits
   namespace: jh-project
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   limits:
     - type: Container

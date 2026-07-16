@@ -3,6 +3,8 @@ kind: ResourceQuota
 metadata:
   name: tenant-quota-shared
   namespace: jh-project-shared
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   hard:
     limits.cpu: '16'
