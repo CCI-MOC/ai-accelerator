@@ -8,6 +8,3 @@ resources:
 - service.yaml
 - route.yaml
 - buckets.yaml
-- mariadb-pipelines-definition-secret.yaml
-- mariadb-pipelines-definition-pvc.yaml
-- mariadb-deployment.yaml
