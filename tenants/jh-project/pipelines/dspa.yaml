@@ -3,6 +3,8 @@ kind: DataSciencePipelinesApplication
 metadata:
   name: pipelines-definition
   namespace: jh-project
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   apiServer:
     enableSamplePipeline: false
