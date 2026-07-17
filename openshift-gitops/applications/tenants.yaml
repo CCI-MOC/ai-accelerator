@@ -8,7 +8,7 @@ spec:
   - list:
       elements:
       - name: tenant-jh-project
-        path: tenants/jh-project
+        path: tenants/tenant-project
   template:
     metadata:
       name: '{{name}}'

@@ -10,9 +10,9 @@ spec:
         url: https://kubernetes.default.svc
         values:
           name: tenant-jh-project
-          path: tenants/jh-project
+          path: tenants/tenant-project
       - cluster: local
         url: https://kubernetes.default.svc
         values:
           name: tenant-jh-project-shared
-          path: tenants/jh-project-shared
+          path: tenants/tenant-project-shared
