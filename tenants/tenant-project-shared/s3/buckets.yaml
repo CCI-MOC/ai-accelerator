@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rustfs-init
+  namespace: jh-project-shared
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+spec:
+  template:
+    spec:
+      containers:
+        - name: bucket-init
+          image: docker.io/rustfs/rustfs:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              /rustfs/rustfs mb s3://pipeline-artifacts --access-key="$RUSTFS_ACCESS_KEY" --secret-key="$RUSTFS_SECRET_KEY" 2>/dev/null || true
+              /rustfs/rustfs mb s3://model-artifacts --access-key="$RUSTFS_ACCESS_KEY" --secret-key="$RUSTFS_SECRET_KEY" 2>/dev/null || true
+          env:
+            - name: RUSTFS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rustfs-credentials
+                  key: RUSTFS_ACCESS_KEY
+            - name: RUSTFS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rustfs-credentials
+                  key: RUSTFS_SECRET_KEY
+          volumeMounts:
+            - name: rustfs-data
+              mountPath: /data
+      restartPolicy: Never
+      volumes:
+        - name: rustfs-data
+          persistentVolumeClaim:
+            claimName: rustfs-data

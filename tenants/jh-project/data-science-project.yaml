@@ -1,6 +1,0 @@
-apiVersion: workbench.opendatahub.io/v1alpha1
-kind: DataScienceProject
-metadata:
-  name: jh-project
-spec:
-  description: "Data Science Project for jh-project tenant"

@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tenants
+  namespace: openshift-gitops-rhoai
+spec:
+  generators:
+  - list:
+      elements:
+      - name: tenant-jh-project
+        path: tenants/tenant-project
+  template:
+    metadata:
+      name: '{{name}}'
+      annotations:
+        argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - SkipDryRunOnMissingResource=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 10m
+      source:
+        repoURL: https://github.com/CCI-MOC/ai-accelerator.git
+        targetRevision: feature/rhoai-tenant
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: openshift-gitops-rhoai

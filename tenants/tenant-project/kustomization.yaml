@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - tenant-quota-gpu.yaml
+  - tenant-limits.yaml
+  - network-policies/
+  - rbac/
+  - pipelines/
+  - data-connections-overlays/
+  - workbenches/
+  - model-serving/
+  - monitoring/

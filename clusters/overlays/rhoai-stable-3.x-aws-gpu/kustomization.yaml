@@ -26,7 +26,7 @@ configMapGenerator:
   - name: gitops-repo-config
     literals:
       - repoURL=https://github.com/CCI-MOC/ai-accelerator.git
-      - targetRevision=main
+      - targetRevision=feature/rhoai-tenant
 
 replacements:
   # copy the repo from the application to the applicationsets
