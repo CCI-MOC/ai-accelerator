@@ -7,8 +7,8 @@ spec:
   generators:
   - list:
       elements:
-      - name: tenant-jh-project
-        path: tenants/tenant-project
+      - name: customer-project
+        path: customers/customer-project
   template:
     metadata:
       name: '{{name}}'
@@ -31,7 +31,7 @@ spec:
             maxDuration: 10m
       source:
         repoURL: https://github.com/CCI-MOC/ai-accelerator.git
-        targetRevision: feature/rhoai-tenant
+        targetRevision: main
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc

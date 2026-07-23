@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-connection-pipeline-s3
+  namespace: cust-project
+  labels:
+    opendatahub.io/dashboard: "true"
+    opendatahub.io/managed: "true"
+  annotations:
+    opendatahub.io/connection-type: s3
+    openshift.io/display-name: "Pipeline S3 (cust-project)"
+stringData:
+  AWS_ACCESS_KEY_ID: admin
+  AWS_SECRET_ACCESS_KEY: rustfs123!
+  AWS_S3_BUCKET: pipeline-artifacts
+  AWS_S3_ENDPOINT: http://rustfs-s3.cust-project.svc.cluster.local:9000
+  AWS_DEFAULT_REGION: us-east-1

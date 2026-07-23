@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-cross-customer
+  namespace: cust-project
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          customer-network-zone: cust-project
+  podSelector: {}
+  policyTypes:
+  - Ingress

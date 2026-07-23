@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+- customer-quota-shared.yaml
+- customer-limits.yaml
+- network-policies/
+- rbac/
+- s3/
+- pipelines/
+- data-connections-overlays/

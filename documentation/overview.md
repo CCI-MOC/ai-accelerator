@@ -18,7 +18,7 @@ This project structure is based on the opinionated configuration found [here](ht
 │   ├── images
 │   └── operators
 ├── scripts                               # scripts to automate maintence tasks
-└── tenants                               # configurations for end user namespaces and resources
+└── customers                             # configurations for end user namespaces and resources
 ```
 
 ## Bootstrap

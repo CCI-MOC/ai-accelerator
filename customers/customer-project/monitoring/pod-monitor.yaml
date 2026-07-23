@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: cust-project-rustfs
+  namespace: cust-project
+  labels:
+    customer: cust-project
+    app: rustfs
+spec:
+  podMetricsEndpoints:
+    - port: api
+      path: /health
+      interval: 30s
+      relabelings:
+        - sourceLabels:
+            - __meta_kubernetes_pod_label_app
+          targetLabel: workload
+  selector:
+    matchLabels:
+      app: rustfs
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: cust-project-workbench
+  namespace: cust-project
+  labels:
+    customer: cust-project
+    app: custwrkbnch
+spec:
+  podMetricsEndpoints:
+    - port: notebook-port
+      path: /notebook/cust-project/custwrkbnch/api
+      interval: 30s
+      relabelings:
+        - sourceLabels:
+            - __meta_kubernetes_pod_label_app
+          targetLabel: workload
+    - port: kube-rbac-proxy
+      path: /healthz
+      interval: 30s
+      scheme: HTTPS
+      tlsConfig:
+        insecureSkipVerify: true
+      relabelings:
+        - sourceLabels:
+            - __meta_kubernetes_pod_label_app
+          targetLabel: workload
+  selector:
+    matchLabels:
+      app: custwrkbnch

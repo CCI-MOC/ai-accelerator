@@ -1,0 +1,25 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rustfs-s3
+  namespace: cust-project
+spec:
+  to:
+    kind: Service
+    name: rustfs-s3
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rustfs-console
+  namespace: cust-project
+spec:
+  to:
+    kind: Service
+    name: rustfs-console
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
